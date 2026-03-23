@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Profile = () => {
     const { user, updateProfile } = useAuth();
-    const navigate = useNavigate();
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -15,13 +13,12 @@ const Profile = () => {
     const [saving, setSaving] = useState(false);
 
     useEffect(() => {
-        if (!user) {
-            navigate('/login');
-            return;
+        if (user) {
+            setName(user.name || '');
+            setEmail(user.email || '');
         }
-        setName(user.name || '');
-        setEmail(user.email || '');
-    }, [user, navigate]);
+    }, [user]);
+
 
     const submitHandler = async (e) => {
         e.preventDefault();

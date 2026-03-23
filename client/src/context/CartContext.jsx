@@ -17,9 +17,13 @@ export const CartProvider = ({ children }) => {
     }, [cartItems]);
 
     const addToCart = (product) => {
+        if (!product.countInStock || product.countInStock <= 0) return; // Out of stock
+
         setCartItems((prevItems) => {
             const existingItem = prevItems.find((item) => item._id === product._id);
             if (existingItem) {
+                // Don't exceed the available stock
+                if (existingItem.qty >= product.countInStock) return prevItems;
                 return prevItems.map((item) =>
                     item._id === product._id
                         ? { ...item, qty: item.qty + 1 }
@@ -49,3 +53,4 @@ export const CartProvider = ({ children }) => {
         </CartContext.Provider>
     );
 };
+

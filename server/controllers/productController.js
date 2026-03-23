@@ -1,13 +1,25 @@
 const asyncHandler = require('express-async-handler');
 const Product = require('../models/Product');
 
-// @desc    Fetch all products
-// @route   GET /api/products
+// @desc    Fetch products with pagination and keyword search
+// @route   GET /api/products?keyword=&pageNumber=
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find({});
-    res.json(products);
+    const PAGE_SIZE = 12;
+    const page = Math.max(Number(req.query.pageNumber) || 1, 1);
+
+    const keyword = req.query.keyword
+        ? { $text: { $search: req.query.keyword } }
+        : {};
+
+    const count = await Product.countDocuments({ ...keyword });
+    const products = await Product.find({ ...keyword })
+        .limit(PAGE_SIZE)
+        .skip(PAGE_SIZE * (page - 1));
+
+    res.json({ products, page, pages: Math.ceil(count / PAGE_SIZE), count });
 });
+
 
 // @desc    Fetch single product
 // @route   GET /api/products/:id
@@ -36,6 +48,7 @@ const createProduct = asyncHandler(async (req, res) => {
         countInStock,
         description,
         unitCost,
+        currency,
         slug,
     } = req.body;
 
@@ -49,6 +62,7 @@ const createProduct = asyncHandler(async (req, res) => {
         countInStock,
         description,
         unitCost,
+        currency: currency || 'USD',
         slug,
     });
 
@@ -69,6 +83,7 @@ const updateProduct = asyncHandler(async (req, res) => {
         countInStock,
         description,
         unitCost,
+        currency,
         slug,
     } = req.body;
 
@@ -83,6 +98,7 @@ const updateProduct = asyncHandler(async (req, res) => {
         if (countInStock !== undefined) product.countInStock = countInStock;
         if (description !== undefined) product.description = description;
         if (unitCost !== undefined) product.unitCost = unitCost;
+        if (currency !== undefined) product.currency = currency;
         if (slug !== undefined) product.slug = slug;
 
         const updatedProduct = await product.save();

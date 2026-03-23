@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const rateLimit = require('express-rate-limit');
 
 const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
@@ -16,13 +17,44 @@ connectDB();
 
 const app = express();
 
-if (process.env.NODE_ENV === 'development') {
+// Security headers first
+app.use(helmet());
+
+// CORS
+app.use(cors());
+
+// Request logging (dev only)
+if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
 }
 
+// Body parser
 app.use(express.json());
-app.use(cors());
-app.use(helmet());
+
+// --- Rate limiters ---
+// Strict limiter for auth endpoints (login / register)
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20,                   // max 20 attempts per window
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Too many requests from this IP, please try again after 15 minutes.' },
+});
+
+// General API limiter (soft protection for all other routes)
+const apiLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 200,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Too many requests, please slow down.' },
+});
+
+// Apply general limiter to all /api routes
+app.use('/api', apiLimiter);
+// Override with stricter limiter for auth routes
+app.use('/api/users/login', authLimiter);
+app.use('/api/users', authLimiter);
 
 // Routes
 app.use('/api/products', productRoutes);

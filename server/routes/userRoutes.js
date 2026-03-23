@@ -7,9 +7,14 @@ const {
     updateUserProfile,
 } = require('../controllers/userController');
 const { protect } = require('../middleware/authMiddleware');
+const validate = require('../middleware/validateMiddleware');
+const schemas = require('../middleware/schemas');
 
-router.post('/', registerUser);
-router.post('/login', authUser);
-router.route('/profile').get(protect, getUserProfile).put(protect, updateUserProfile);
+router.post('/', validate(schemas.registerUser), registerUser);
+router.post('/login', validate(schemas.loginUser), authUser);
+router.route('/profile')
+    .get(protect, getUserProfile)
+    .put(protect, validate(schemas.updateUser), updateUserProfile);
 
 module.exports = router;
+

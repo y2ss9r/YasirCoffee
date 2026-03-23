@@ -13,6 +13,7 @@ const productSchema = mongoose.Schema({
     price: { type: Number, required: true, default: 0 },
     unitCost: { type: Number, required: true, default: 0 }, // For profit calculation
     countInStock: { type: Number, required: true, default: 0 },
+    currency: { type: String, required: true, default: 'USD', enum: ['USD', 'TRY'] }, // Display currency
     slug: { type: String, unique: true, index: true }, // For SEO friendly URLs
 }, {
     timestamps: true,

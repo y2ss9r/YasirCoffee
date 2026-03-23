@@ -1,6 +1,7 @@
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 
 import Menu from './pages/Menu';
@@ -25,8 +26,22 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute adminOnly>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                }
+              />
               {/* Future routes will go here */}
             </Routes>
           </main>
