@@ -133,13 +133,13 @@ const Home = () => {
                     <p className="text-white/50 mb-8 animate-fadeInUp delay-200">
                         Subscribe to our newsletter for the latest blends, brewing tips, and exclusive offers.
                     </p>
-                    <form className="flex flex-col sm:flex-row gap-3 animate-fadeInUp delay-300">
+                    <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-3 animate-fadeInUp delay-300">
                         <input
                             type="email"
                             placeholder="Enter your email"
                             className="flex-1 px-5 py-4 rounded-xl bg-white/10 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent backdrop-blur-sm transition-all duration-300 input-warm"
                         />
-                        <button className="px-8 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-all duration-300 shadow-warm hover:shadow-warm-lg hover:scale-105 btn-shimmer">
+                        <button type="button" className="px-8 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-all duration-300 shadow-warm hover:shadow-warm-lg hover:scale-105 btn-shimmer">
                             Subscribe
                         </button>
                     </form>

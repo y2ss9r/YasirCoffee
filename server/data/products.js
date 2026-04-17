@@ -11,6 +11,8 @@ const products = [
         rating: 5.0,
         numReviews: 25,
         slug: 'turkish-coffee',
+        coffeeDNA: { bitterness: 8, acidity: 3, roastLevel: 8, body: 9, sweetness: 2, flavorNotes: ['earthy', 'spicy', 'chocolate'] },
+        brewingMethods: ['Cezve/Ibrik', 'Traditional pot'],
     },
     {
         name: 'Arabic Coffee',
@@ -24,6 +26,8 @@ const products = [
         rating: 4.9,
         numReviews: 18,
         slug: 'arabic-coffee',
+        coffeeDNA: { bitterness: 4, acidity: 3, roastLevel: 3, body: 5, sweetness: 3, flavorNotes: ['cardamom', 'saffron', 'floral'] },
+        brewingMethods: ['Dallah', 'Traditional pot'],
     },
     {
         name: 'Espresso',
@@ -37,6 +41,8 @@ const products = [
         rating: 4.8,
         numReviews: 40,
         slug: 'espresso',
+        coffeeDNA: { bitterness: 7, acidity: 5, roastLevel: 7, body: 8, sweetness: 2, flavorNotes: ['intense', 'caramel', 'nutty'] },
+        brewingMethods: ['Espresso machine', 'Moka pot'],
     },
     {
         name: 'Cappuccino',
@@ -50,6 +56,8 @@ const products = [
         rating: 4.7,
         numReviews: 35,
         slug: 'cappuccino',
+        coffeeDNA: { bitterness: 4, acidity: 3, roastLevel: 6, body: 5, sweetness: 5, flavorNotes: ['creamy', 'milk', 'balanced'] },
+        brewingMethods: ['Espresso machine + steamer'],
     },
     {
         name: 'Latte',
@@ -63,6 +71,8 @@ const products = [
         rating: 4.6,
         numReviews: 45,
         slug: 'latte',
+        coffeeDNA: { bitterness: 3, acidity: 2, roastLevel: 5, body: 4, sweetness: 6, flavorNotes: ['smooth', 'milk', 'gentle'] },
+        brewingMethods: ['Espresso machine + steamer'],
     },
     {
         name: 'Americano',
@@ -76,6 +86,8 @@ const products = [
         rating: 4.5,
         numReviews: 20,
         slug: 'americano',
+        coffeeDNA: { bitterness: 6, acidity: 5, roastLevel: 6, body: 4, sweetness: 2, flavorNotes: ['clean', 'bold', 'classic'] },
+        brewingMethods: ['Espresso machine', 'Drip'],
     },
     {
         name: 'Mocha',
@@ -89,10 +101,12 @@ const products = [
         rating: 4.8,
         numReviews: 30,
         slug: 'mocha',
+        coffeeDNA: { bitterness: 3, acidity: 2, roastLevel: 5, body: 6, sweetness: 8, flavorNotes: ['chocolate', 'sweet', 'rich'] },
+        brewingMethods: ['Espresso machine + steamer'],
     },
     {
         name: 'Caramel Macchiato',
-        image: '/images/colombia.jpg', // Reusing existing relevant image temporarily or will update
+        image: '/images/colombia.jpg',
         description: 'Freshly steamed milk with vanilla-flavored syrup marked with espresso and topped with a caramel drizzle.',
         brand: 'Yasir Coffee',
         category: 'Sweet',
@@ -102,6 +116,8 @@ const products = [
         rating: 4.9,
         numReviews: 28,
         slug: 'caramel-macchiato',
+        coffeeDNA: { bitterness: 2, acidity: 2, roastLevel: 4, body: 5, sweetness: 9, flavorNotes: ['caramel', 'vanilla', 'sweet'] },
+        brewingMethods: ['Espresso machine + steamer'],
     },
     {
         name: 'Flat White',
@@ -115,10 +131,12 @@ const products = [
         rating: 4.7,
         numReviews: 15,
         slug: 'flat-white',
+        coffeeDNA: { bitterness: 5, acidity: 4, roastLevel: 6, body: 6, sweetness: 4, flavorNotes: ['velvety', 'smooth', 'balanced'] },
+        brewingMethods: ['Espresso machine + steamer'],
     },
     {
         name: 'Cold Brew',
-        image: '/images/ethiopian.jpg', // Reusing existing relevant image
+        image: '/images/ethiopian.jpg',
         description: 'Slow-steeped for 20 hours for a super smooth flavor without the acidity. Served over ice.',
         brand: 'Yasir Coffee',
         category: 'Cold',
@@ -128,6 +146,8 @@ const products = [
         rating: 4.8,
         numReviews: 50,
         slug: 'cold-brew',
+        coffeeDNA: { bitterness: 4, acidity: 1, roastLevel: 5, body: 7, sweetness: 5, flavorNotes: ['smooth', 'chocolatey', 'refreshing'] },
+        brewingMethods: ['Cold brew immersion', 'Cold drip'],
     },
 ];
 

@@ -79,9 +79,17 @@ const Navbar = () => {
                                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent-warm flex items-center justify-center text-white text-xs font-bold shadow-warm">
                                     {user.name?.charAt(0)?.toUpperCase() || 'U'}
                                 </div>
-                                <span className="text-sm font-medium text-secondary/80">{user.name?.split(' ')[0]}</span>
+                                <span className="text-sm font-medium text-secondary/80 mr-2">{user.name?.split(' ')[0]}</span>
+                            </Link>
+
+                            <Link
+                                to="/orders"
+                                className="px-3 py-2 text-sm font-medium text-secondary/70 hover:text-primary transition-colors duration-200"
+                            >
+                                Orders
                             </Link>
                             <button
+                                type="button"
                                 onClick={logout}
                                 className="px-4 py-2 text-sm font-medium text-secondary/70 rounded-lg border border-secondary/10 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all duration-300"
                             >
@@ -96,6 +104,7 @@ const Navbar = () => {
 
                     {/* Mobile menu toggle */}
                     <button
+                        type="button"
                         onClick={() => setMobileOpen(!mobileOpen)}
                         className="md:hidden p-2 rounded-lg hover:bg-primary/10 transition-colors"
                         aria-label="Toggle menu"
@@ -151,7 +160,15 @@ const Navbar = () => {
                                     </div>
                                     Profile
                                 </Link>
+                                <Link
+                                    to="/orders"
+                                    onClick={() => setMobileOpen(false)}
+                                    className="block px-4 py-3 rounded-xl text-sm font-medium text-secondary/70 hover:text-primary hover:bg-primary/5 transition-all"
+                                >
+                                    My Orders
+                                </Link>
                                 <button
+                                    type="button"
                                     onClick={() => { logout(); setMobileOpen(false); }}
                                     className="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 transition-all"
                                 >

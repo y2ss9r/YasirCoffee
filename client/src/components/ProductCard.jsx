@@ -45,6 +45,7 @@ const ProductCard = ({ product, index = 0 }) => {
                 {/* Quick add on hover */}
                 <div className="absolute bottom-3 left-3 right-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400">
                     <button
+                        type="button"
                         onClick={handleAddToCart}
                         disabled={outOfStock}
                         className="w-full rounded-xl bg-primary py-3 text-center text-sm font-semibold text-white shadow-warm-lg transition-all duration-300 hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed btn-shimmer flex items-center justify-center gap-2"
@@ -90,6 +91,7 @@ const ProductCard = ({ product, index = 0 }) => {
 
                 {/* Mobile add button (visible on mobile where hover doesn't work) */}
                 <button
+                    type="button"
                     onClick={handleAddToCart}
                     disabled={outOfStock}
                     className="mt-4 w-full rounded-xl bg-secondary py-2.5 text-center text-sm font-medium text-white transition-all duration-300 hover:bg-secondary-light focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:cursor-not-allowed disabled:opacity-50 md:hidden btn-shimmer"

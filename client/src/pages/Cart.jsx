@@ -83,6 +83,7 @@ const Cart = () => {
                                     <span className="text-secondary/40 text-sm font-normal"> × {item.qty}</span>
                                 </span>
                                 <button
+                                    type="button"
                                     onClick={() => removeFromCart(item._id)}
                                     className="text-sm text-red-400 hover:text-red-600 font-medium transition-colors duration-200 flex items-center gap-1"
                                 >
@@ -97,6 +98,7 @@ const Cart = () => {
 
                     <div className="flex justify-end pt-2">
                         <button
+                            type="button"
                             onClick={clearCart}
                             className="text-sm text-secondary/40 hover:text-red-500 font-medium transition-all duration-200 flex items-center gap-1"
                         >
@@ -127,12 +129,12 @@ const Cart = () => {
                             </div>
                         </div>
 
-                        <button
-                            className="w-full rounded-xl bg-primary px-4 py-4 text-base font-bold text-white shadow-warm hover:bg-primary-dark hover:shadow-warm-lg transition-all duration-300 hover:scale-[1.02] btn-shimmer"
-                            onClick={() => alert('Proceeding to Checkout...')}
+                        <Link
+                            to="/checkout"
+                            className="block text-center w-full rounded-xl bg-primary px-4 py-4 text-base font-bold text-white shadow-warm hover:bg-primary-dark hover:shadow-warm-lg transition-all duration-300 hover:scale-[1.02] btn-shimmer"
                         >
                             Proceed to Checkout
-                        </button>
+                        </Link>
 
                         <div className="mt-4 flex items-center justify-center gap-2 text-xs text-secondary/30">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

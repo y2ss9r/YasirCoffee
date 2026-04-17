@@ -100,6 +100,7 @@ const Menu = () => {
                             <p className="text-secondary/50 text-lg">No products found.</p>
                             {keyword && (
                                 <button
+                                    type="button"
                                     onClick={() => { setKeyword(''); setSearchInput(''); }}
                                     className="mt-4 text-primary hover:text-primary-dark font-medium text-sm"
                                 >
@@ -120,6 +121,7 @@ const Menu = () => {
                                 <div className="mt-14 flex justify-center gap-2 animate-fadeInUp">
                                     {Array.from({ length: pages }, (_, i) => i + 1).map((p) => (
                                         <button
+                                            type="button"
                                             key={p}
                                             onClick={() => setPage(p)}
                                             className={`h-10 w-10 rounded-xl text-sm font-semibold transition-all duration-300 ${
