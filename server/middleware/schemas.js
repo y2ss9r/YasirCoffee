@@ -1,20 +1,21 @@
 const Joi = require('joi');
 
 const registerUser = Joi.object({
-    name: Joi.string().min(2).max(80).required(),
-    email: Joi.string().email().required(),
-    password: Joi.string().min(6).max(128).required(),
+    name: Joi.string().trim().min(2).max(80).required(),
+    email: Joi.string().trim().email().lowercase().required(),
+    password: Joi.string().min(8).max(128).required()
+        .messages({ 'string.min': 'Password must be at least 8 characters' }),
 });
 
 const loginUser = Joi.object({
-    email: Joi.string().email().required(),
+    email: Joi.string().trim().email().lowercase().required(),
     password: Joi.string().min(1).required(),
 });
 
 const updateUser = Joi.object({
-    name: Joi.string().min(2).max(80),
-    email: Joi.string().email(),
-    password: Joi.string().min(6).max(128).allow(''),
+    name: Joi.string().trim().min(2).max(80),
+    email: Joi.string().trim().email().lowercase(),
+    password: Joi.string().min(8).max(128).allow(''),
 });
 
 const createProduct = Joi.object({
