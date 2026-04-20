@@ -155,6 +155,30 @@ const RadarChart = ({ profile, size = 180, label }) => {
     );
 };
 
+// ── Loading spinner ─────────────────────────────────────────────────
+const Spinner = () => (
+    <div className="flex justify-center py-16">
+        <div className="relative">
+            <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
+            <span className="absolute inset-0 flex items-center justify-center text-lg">☕</span>
+        </div>
+    </div>
+);
+
+// ── Section wrapper ──────────────────────────────────────────────────
+const Section = ({ title, subtitle, children, action }) => (
+    <div className="mb-8 animate-fadeInUp">
+        <div className="flex items-center justify-between mb-5">
+            <div>
+                <h2 className="text-xl font-bold text-secondary" style={{ fontFamily: 'var(--font-display)' }}>{title}</h2>
+                {subtitle && <p className="text-sm text-secondary/50 mt-0.5">{subtitle}</p>}
+            </div>
+            {action}
+        </div>
+        {children}
+    </div>
+);
+
 // ═══════════════════════════════════════════════════════════════════
 // MAIN COMPONENT
 // ═══════════════════════════════════════════════════════════════════
@@ -279,29 +303,7 @@ const AdminDashboard = () => {
         });
     };
 
-    // ── Loading spinner ─────────────────────────────────────────────
-    const Spinner = () => (
-        <div className="flex justify-center py-16">
-            <div className="relative">
-                <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-                <span className="absolute inset-0 flex items-center justify-center text-lg">☕</span>
-            </div>
-        </div>
-    );
-
-    // ── Section wrapper ─────────────────────────────────────────────
-    const Section = ({ title, subtitle, children, action }) => (
-        <div className="mb-8 animate-fadeInUp">
-            <div className="flex items-center justify-between mb-5">
-                <div>
-                    <h2 className="text-xl font-bold text-secondary" style={{ fontFamily: 'var(--font-display)' }}>{title}</h2>
-                    {subtitle && <p className="text-sm text-secondary/50 mt-0.5">{subtitle}</p>}
-                </div>
-                {action}
-            </div>
-            {children}
-        </div>
-    );
+    // Spinner and Section are defined at module level (below) to avoid re-creation on every render.
 
     // ═════════════════════════════════════════════════════════════════
     // RENDER TABS
