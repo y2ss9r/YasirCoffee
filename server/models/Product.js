@@ -13,7 +13,7 @@ const productSchema = mongoose.Schema({
     price: { type: Number, required: true, default: 0 },
     unitCost: { type: Number, required: true, default: 0 },
     countInStock: { type: Number, required: true, default: 0 },
-    currency: { type: String, required: true, default: 'USD', enum: ['USD', 'TRY'] },
+    currency: { type: String, required: true, default: 'TRY', enum: ['TRY', 'USD'] },
     slug: { type: String, unique: true, index: true },
 
     // === AI Coffee DNA Attributes ===

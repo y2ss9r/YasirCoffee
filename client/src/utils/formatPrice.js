@@ -1,10 +1,10 @@
 /**
  * Formats a price number with the correct currency symbol.
  * @param {number} price
- * @param {'USD'|'TRY'} currency
+ * @param {'TRY'|'USD'} currency
  * @returns {string}
  */
-export const formatPrice = (price, currency = 'USD') => {
+export const formatPrice = (price, currency = 'TRY') => {
     const amount = Number(price).toFixed(2);
-    return currency === 'TRY' ? `₺${amount}` : `$${amount}`;
+    return currency === 'USD' ? `$${amount}` : `₺${amount}`;
 };

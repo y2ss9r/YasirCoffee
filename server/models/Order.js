@@ -9,6 +9,7 @@ const orderSchema = mongoose.Schema({
             image: { type: String, required: true },
             price: { type: Number, required: true }, // Snapshot of price at time of purchase
             unitCost: { type: Number, required: true }, // Snapshot of cost at time of purchase
+            currency: { type: String, default: 'TRY', enum: ['TRY', 'USD'] }, // Currency at time of purchase
             product: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,
@@ -29,6 +30,7 @@ const orderSchema = mongoose.Schema({
         update_time: { type: String },
         email_address: { type: String },
     },
+    itemsPrice: { type: Number, required: true, default: 0.0 },   // Subtotal before tax & shipping
     taxPrice: { type: Number, required: true, default: 0.0 },
     shippingPrice: { type: Number, required: true, default: 0.0 },
     totalPrice: { type: Number, required: true, default: 0.0 },

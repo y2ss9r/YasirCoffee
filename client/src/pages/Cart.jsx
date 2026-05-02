@@ -10,7 +10,7 @@ const Cart = () => {
     };
 
     const allSameCurrency = cartItems.length > 0 && cartItems.every(i => i.currency === cartItems[0].currency);
-    const totalCurrency = allSameCurrency ? cartItems[0].currency : 'USD';
+    const totalCurrency = allSameCurrency ? cartItems[0].currency : 'TRY';
 
     if (cartItems.length === 0) {
         return (
@@ -121,11 +121,20 @@ const Cart = () => {
                             </div>
                             <div className="flex justify-between text-secondary/60 text-sm">
                                 <span>Shipping</span>
-                                <span className="text-green-600 font-medium">Free</span>
+                                <span className={parseFloat(calculateTotal()) > 100 ? 'text-green-600 font-medium' : 'font-medium'}>
+                                    {parseFloat(calculateTotal()) > 100 ? 'Free' : formatPrice(10, totalCurrency)}
+                                </span>
                             </div>
                             <div className="border-t border-primary/10 pt-4 flex justify-between font-bold text-xl text-secondary">
                                 <span>Total</span>
-                                <span className="text-primary">{formatPrice(calculateTotal(), totalCurrency)}</span>
+                                <span className="text-primary">
+                                    {formatPrice(
+                                        parseFloat(calculateTotal()) > 100
+                                            ? parseFloat(calculateTotal())
+                                            : parseFloat(calculateTotal()) + 10,
+                                        totalCurrency
+                                    )}
+                                </span>
                             </div>
                         </div>
 

@@ -27,7 +27,7 @@ const createProduct = Joi.object({
     countInStock: Joi.number().integer().min(0).required(),
     description: Joi.string().min(5).max(2000).required(),
     unitCost: Joi.number().min(0).required(),
-    currency: Joi.string().valid('USD', 'TRY').default('USD'),
+    currency: Joi.string().valid('TRY', 'USD').default('TRY'),
     slug: Joi.string().max(200).optional().allow(''),
 });
 
@@ -40,7 +40,7 @@ const updateProduct = Joi.object({
     countInStock: Joi.number().integer().min(0),
     description: Joi.string().min(5).max(2000),
     unitCost: Joi.number().min(0),
-    currency: Joi.string().valid('USD', 'TRY'),
+    currency: Joi.string().valid('TRY', 'USD'),
     slug: Joi.string().max(200).optional().allow(''),
 });
 

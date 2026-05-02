@@ -74,7 +74,7 @@ const OrderHistory = () => {
                                     </div>
                                     <div className="text-right">
                                         <p className="font-bold text-lg text-secondary">
-                                            {formatPrice(order.totalPrice, order.orderItems[0]?.currency || 'USD')}
+                                            {formatPrice(order.totalPrice, order.orderItems[0]?.currency || 'TRY')}
                                         </p>
                                         <p className="text-xs flex gap-2 justify-end mt-1">
                                             {order.isPaid ? (
@@ -99,7 +99,7 @@ const OrderHistory = () => {
                                                 <span className="text-secondary/50 ml-2">x {item.qty}</span>
                                             </div>
                                             <span className="text-secondary/70">
-                                                {formatPrice(item.price, item.currency || 'USD')}
+                                                {formatPrice(item.price, item.currency || 'TRY')}
                                             </span>
                                         </div>
                                     ))}

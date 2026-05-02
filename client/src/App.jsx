@@ -13,6 +13,7 @@ import OrderHistory from './pages/OrderHistory';
 import About from './pages/About';
 import AdminDashboard from './pages/AdminDashboard';
 import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
 
 import { AuthProvider } from './context/AuthContext';
 
@@ -56,7 +57,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              {/* Future routes will go here */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
 

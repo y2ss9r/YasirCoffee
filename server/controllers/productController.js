@@ -62,7 +62,7 @@ const createProduct = asyncHandler(async (req, res) => {
         countInStock,
         description,
         unitCost,
-        currency: currency || 'USD',
+        currency: currency || 'TRY',
         slug,
     });
 

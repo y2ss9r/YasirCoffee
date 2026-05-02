@@ -5,22 +5,22 @@ import { formatPrice } from '../utils/formatPrice';
 
 // ── Tab configs ─────────────────────────────────────────────────────
 const TABS = [
-    { id: 'overview',     label: 'AI Overview',      icon: '🧠' },
-    { id: 'products',     label: 'Products',         icon: '☕' },
-    { id: 'analytics',    label: 'Analytics',        icon: '📊' },
-    { id: 'stagnation',   label: 'Stagnation',       icon: '📉' },
-    { id: 'pricing',      label: 'Smart Pricing',    icon: '💰' },
-    { id: 'offers',       label: 'Offers Engine',    icon: '🎁' },
-    { id: 'subscriptions',label: 'Subscriptions',    icon: '🔄' },
-    { id: 'quiz',         label: 'Quiz Config',      icon: '🧪' },
-    { id: 'chatbot',      label: 'Chatbot',          icon: '🤖' },
-    { id: 'taste',        label: 'Taste Profiles',   icon: '🧬' },
+    { id: 'overview', label: 'AI Overview', icon: '🧠' },
+    { id: 'products', label: 'Products', icon: '☕' },
+    { id: 'analytics', label: 'Analytics', icon: '📊' },
+    { id: 'stagnation', label: 'Stagnation', icon: '📉' },
+    { id: 'pricing', label: 'Smart Pricing', icon: '💰' },
+    { id: 'offers', label: 'Offers Engine', icon: '🎁' },
+    { id: 'subscriptions', label: 'Subscriptions', icon: '🔄' },
+    { id: 'quiz', label: 'Quiz Config', icon: '🧪' },
+    { id: 'chatbot', label: 'Chatbot', icon: '🤖' },
+    { id: 'taste', label: 'Taste Profiles', icon: '🧬' },
 ];
 
 // ── Product form empty state ────────────────────────────────────────
 const emptyForm = {
     name: '', price: '', image: '', brand: '', category: '',
-    countInStock: '', description: '', unitCost: '', currency: 'USD', slug: '',
+    countInStock: '', description: '', unitCost: '', currency: 'TRY', slug: '',
 };
 
 // ── Stat Card ───────────────────────────────────────────────────────
@@ -32,20 +32,18 @@ const StatCard = ({ icon, label, value, sub, color = 'primary', trend }) => (
                 <p className="mt-1 text-2xl font-bold text-secondary">{value}</p>
                 {sub && <p className="text-xs text-secondary/50 mt-1">{sub}</p>}
             </div>
-            <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-xl ${
-                color === 'green' ? 'bg-green-100' :
-                color === 'red' ? 'bg-red-100' :
-                color === 'amber' ? 'bg-amber-100' :
-                color === 'blue' ? 'bg-blue-100' :
-                'bg-primary/10'
-            } group-hover:scale-110 transition-transform duration-300`}>
+            <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-xl ${color === 'green' ? 'bg-green-100' :
+                    color === 'red' ? 'bg-red-100' :
+                        color === 'amber' ? 'bg-amber-100' :
+                            color === 'blue' ? 'bg-blue-100' :
+                                'bg-primary/10'
+                } group-hover:scale-110 transition-transform duration-300`}>
                 {icon}
             </div>
         </div>
         {trend && (
-            <div className={`mt-3 flex items-center gap-1 text-xs font-semibold ${
-                trend > 0 ? 'text-green-600' : trend < 0 ? 'text-red-500' : 'text-secondary/50'
-            }`}>
+            <div className={`mt-3 flex items-center gap-1 text-xs font-semibold ${trend > 0 ? 'text-green-600' : trend < 0 ? 'text-red-500' : 'text-secondary/50'
+                }`}>
                 <span>{trend > 0 ? '↑' : trend < 0 ? '↓' : '→'}</span>
                 <span>{Math.abs(trend)}% vs last week</span>
             </div>
@@ -56,13 +54,13 @@ const StatCard = ({ icon, label, value, sub, color = 'primary', trend }) => (
 // ── Status Badge ────────────────────────────────────────────────────
 const StatusBadge = ({ status }) => {
     const styles = {
-        critical:  'bg-red-100 text-red-700',
+        critical: 'bg-red-100 text-red-700',
         declining: 'bg-orange-100 text-orange-700',
-        watch:     'bg-amber-100 text-amber-700',
-        healthy:   'bg-green-100 text-green-700',
-        trending:  'bg-blue-100 text-blue-700',
-        active:    'bg-green-100 text-green-700',
-        paused:    'bg-amber-100 text-amber-700',
+        watch: 'bg-amber-100 text-amber-700',
+        healthy: 'bg-green-100 text-green-700',
+        trending: 'bg-blue-100 text-blue-700',
+        active: 'bg-green-100 text-green-700',
+        paused: 'bg-amber-100 text-amber-700',
         cancelled: 'bg-red-100 text-red-700',
     };
     return (
@@ -250,7 +248,7 @@ const AdminDashboard = () => {
     const resetForm = () => { setForm(emptyForm); setEditingId(null); };
     const handleEdit = (product) => {
         setEditingId(product._id);
-        setForm({ name: product.name || '', price: product.price ?? '', image: product.image || '', brand: product.brand || '', category: product.category || '', countInStock: product.countInStock ?? '', description: product.description || '', unitCost: product.unitCost ?? '', currency: product.currency || 'USD', slug: product.slug || '' });
+        setForm({ name: product.name || '', price: product.price ?? '', image: product.image || '', brand: product.brand || '', category: product.category || '', countInStock: product.countInStock ?? '', description: product.description || '', unitCost: product.unitCost ?? '', currency: product.currency || 'TRY', slug: product.slug || '' });
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
     const handleDelete = async (id) => {
@@ -289,7 +287,7 @@ const AdminDashboard = () => {
     };
     const resetChatTest = async () => {
         const newId = 'admin-test-' + Date.now();
-        try { await apiFetch('/api/ai/reset', { method: 'POST', body: JSON.stringify({ sessionId: chatTest.sessionId }) }); } catch {}
+        try { await apiFetch('/api/ai/reset', { method: 'POST', body: JSON.stringify({ sessionId: chatTest.sessionId }) }); } catch { }
         setChatTest({ messages: [], input: '', sessionId: newId });
     };
 
@@ -319,10 +317,9 @@ const AdminDashboard = () => {
                     <Section title="🧠 AI Insights" subtitle="Intelligent observations about your store">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             {d.insights.map((insight, i) => (
-                                <div key={i} className={`glass rounded-xl p-4 border-l-4 animate-fadeInUp ${
-                                    insight.type === 'positive' ? 'border-l-green-400' :
-                                    insight.type === 'warning' ? 'border-l-amber-400' : 'border-l-blue-400'
-                                }`} style={{ animationDelay: `${i * 100}ms` }}>
+                                <div key={i} className={`glass rounded-xl p-4 border-l-4 animate-fadeInUp ${insight.type === 'positive' ? 'border-l-green-400' :
+                                        insight.type === 'warning' ? 'border-l-amber-400' : 'border-l-blue-400'
+                                    }`} style={{ animationDelay: `${i * 100}ms` }}>
                                     <p className="text-sm text-secondary">{insight.text}</p>
                                 </div>
                             ))}
@@ -379,10 +376,9 @@ const AdminDashboard = () => {
                     <Section title="⚠️ Stock Alerts" subtitle="Products running low based on sales velocity">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             {d.stockAlerts.map((alert, i) => (
-                                <div key={i} className={`glass rounded-xl p-4 border-l-4 ${
-                                    alert.severity === 'critical' ? 'border-l-red-500' :
-                                    alert.severity === 'warning' ? 'border-l-amber-400' : 'border-l-blue-400'
-                                }`}>
+                                <div key={i} className={`glass rounded-xl p-4 border-l-4 ${alert.severity === 'critical' ? 'border-l-red-500' :
+                                        alert.severity === 'warning' ? 'border-l-amber-400' : 'border-l-blue-400'
+                                    }`}>
                                     <div className="flex justify-between items-start">
                                         <div>
                                             <p className="font-semibold text-secondary text-sm">{alert.name}</p>
@@ -441,7 +437,7 @@ const AdminDashboard = () => {
                         <div className="md:col-span-2">
                             <label className="block mb-1.5 text-xs font-semibold text-secondary/60 uppercase tracking-wider">Currency</label>
                             <div className="flex gap-3">
-                                {['USD', 'TRY'].map(cur => (
+                                {['TRY', 'USD'].map(cur => (
                                     <label key={cur} className={`flex items-center gap-2 cursor-pointer rounded-xl border-2 px-5 py-2.5 text-sm font-semibold transition-all ${form.currency === cur ? 'border-primary bg-primary/5 text-primary' : 'border-gray-200 text-gray-400 hover:border-gray-300'}`}>
                                         <input type="radio" name="currency" value={cur} checked={form.currency === cur} onChange={handleChange} className="hidden" />
                                         {cur === 'USD' ? '$ USD' : '₺ TRY'}
@@ -451,7 +447,7 @@ const AdminDashboard = () => {
                         </div>
                         <textarea name="description" value={form.description} onChange={handleChange} placeholder="Description" required rows="3" className="rounded-xl border border-gray-200 px-4 py-2.5 text-sm md:col-span-2 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all" />
                         <button type="submit" disabled={saving} className="md:col-span-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white hover:bg-primary-dark transition-colors disabled:opacity-60 btn-shimmer">
-                            {saving ? '⏳ Saving...' : editingId ? '✅ Update Product' : '➕ Create Product'}
+                            {saving ? '⏳ Saving...' : editingId ? 'Update Product' : '➕ Create Product'}
                         </button>
                     </form>
                 </div>
@@ -563,12 +559,11 @@ const AdminDashboard = () => {
                     {/* Product Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {stagnation.products?.map((p, i) => (
-                            <div key={i} className={`glass rounded-2xl p-5 border-l-4 animate-fadeInUp ${
-                                p.status === 'critical' ? 'border-l-red-500' :
-                                p.status === 'declining' ? 'border-l-orange-400' :
-                                p.status === 'watch' ? 'border-l-amber-400' :
-                                p.status === 'trending' ? 'border-l-blue-400' : 'border-l-green-400'
-                            }`} style={{ animationDelay: `${i * 80}ms` }}>
+                            <div key={i} className={`glass rounded-2xl p-5 border-l-4 animate-fadeInUp ${p.status === 'critical' ? 'border-l-red-500' :
+                                    p.status === 'declining' ? 'border-l-orange-400' :
+                                        p.status === 'watch' ? 'border-l-amber-400' :
+                                            p.status === 'trending' ? 'border-l-blue-400' : 'border-l-green-400'
+                                }`} style={{ animationDelay: `${i * 80}ms` }}>
                                 <div className="flex justify-between items-start mb-3">
                                     <div>
                                         <h4 className="font-semibold text-secondary">{p.name}</h4>
@@ -839,11 +834,10 @@ const AdminDashboard = () => {
                         )}
                         {chatTest.messages.map((msg, i) => (
                             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${
-                                    msg.role === 'user'
+                                <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${msg.role === 'user'
                                         ? 'bg-primary text-white rounded-br-sm'
                                         : 'bg-secondary/5 text-secondary rounded-bl-sm'
-                                }`}>
+                                    }`}>
                                     <p style={{ whiteSpace: 'pre-wrap' }}>{msg.text}</p>
                                     {msg.quickReplies && (
                                         <div className="flex flex-wrap gap-1.5 mt-2">
@@ -977,17 +971,17 @@ const AdminDashboard = () => {
     // ═════════════════════════════════════════════════════════════════
     const renderActiveTab = () => {
         switch (activeTab) {
-            case 'overview':      return renderOverview();
-            case 'products':      return renderProducts();
-            case 'analytics':     return renderAnalytics();
-            case 'stagnation':    return renderStagnation();
-            case 'pricing':       return renderPricing();
-            case 'offers':        return renderOffers();
+            case 'overview': return renderOverview();
+            case 'products': return renderProducts();
+            case 'analytics': return renderAnalytics();
+            case 'stagnation': return renderStagnation();
+            case 'pricing': return renderPricing();
+            case 'offers': return renderOffers();
             case 'subscriptions': return renderSubscriptions();
-            case 'quiz':          return renderQuiz();
-            case 'chatbot':       return renderChatbot();
-            case 'taste':         return renderTasteProfiles();
-            default:              return renderOverview();
+            case 'quiz': return renderQuiz();
+            case 'chatbot': return renderChatbot();
+            case 'taste': return renderTasteProfiles();
+            default: return renderOverview();
         }
     };
 
@@ -1018,11 +1012,10 @@ const AdminDashboard = () => {
                                 type="button"
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                                    activeTab === tab.id
+                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${activeTab === tab.id
                                         ? 'bg-primary/20 text-primary-light'
                                         : 'text-white/50 hover:text-white/80 hover:bg-white/5'
-                                }`}
+                                    }`}
                             >
                                 <span className="text-base flex-shrink-0">{tab.icon}</span>
                                 {sidebarOpen && <span className="truncate">{tab.label}</span>}

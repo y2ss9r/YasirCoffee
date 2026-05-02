@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -19,13 +19,16 @@ const Checkout = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    if (cartItems.length === 0) {
-        navigate('/cart');
-        return null;
-    }
+    useEffect(() => {
+        if (cartItems.length === 0) {
+            navigate('/cart');
+        }
+    }, [cartItems.length, navigate]);
+
+    if (cartItems.length === 0) return null;
 
     const allSameCurrency = cartItems.length > 0 && cartItems.every(i => i.currency === cartItems[0].currency);
-    const currency = allSameCurrency ? cartItems[0].currency : 'USD';
+    const currency = allSameCurrency ? cartItems[0].currency : 'TRY';
 
     const itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
     const shippingPrice = itemsPrice > 100 ? 0 : 10;
@@ -51,7 +54,10 @@ const Checkout = () => {
                     'Authorization': `Bearer ${user.token}`
                 },
                 body: JSON.stringify({
-                    orderItems: cartItems,
+                    orderItems: cartItems.map(item => ({
+                        ...item,
+                        currency: item.currency || 'TRY', // Ensure currency is sent
+                    })),
                     shippingAddress,
                     paymentMethod: 'Credit Card',
                     itemsPrice,

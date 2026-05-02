@@ -1,5 +1,7 @@
-const express = require('express');
 const dotenv = require('dotenv');
+dotenv.config(); // Must be first — loads .env before anything else reads process.env
+
+const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -18,8 +20,6 @@ const subscriptionRoutes = require('./routes/subscriptionRoutes');
 const offerRoutes = require('./routes/offerRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
 const orderRoutes = require('./routes/orderRoutes');
-
-dotenv.config();
 
 connectDB();
 
@@ -58,9 +58,15 @@ const apiLimiter = rateLimit({
 
 // Apply general limiter to all /api routes
 app.use('/api', apiLimiter);
-// Override with stricter limiter for auth routes
+// Stricter limiter only for login and register (not profile endpoints)
 app.use('/api/users/login', authLimiter);
-app.use('/api/users', authLimiter);
+app.use('/api/users', (req, res, next) => {
+    // Only apply auth limiter to POST /api/users (register)
+    if (req.method === 'POST' && req.path === '/') {
+        return authLimiter(req, res, next);
+    }
+    next();
+});
 
 // ── Routes ──────────────────────────────────────────────────────────
 app.use('/api/products', productRoutes);

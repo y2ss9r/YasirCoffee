@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Hero from '../components/Hero';
 import ProductCard from '../components/ProductCard';
 import CoffeeLoader from '../components/CoffeeLoader';
@@ -7,6 +7,16 @@ import useApi from '../hooks/useApi';
 
 const Home = () => {
     const { data, loading, error, request } = useApi('/api/products');
+    const [email, setEmail] = useState('');
+    const [subscribed, setSubscribed] = useState(false);
+
+    const handleSubscribe = (e) => {
+        e.preventDefault();
+        if (email.trim()) {
+            setSubscribed(true);
+            setEmail('');
+        }
+    };
 
     useEffect(() => {
         request();
@@ -133,16 +143,29 @@ const Home = () => {
                     <p className="text-white/50 mb-8 animate-fadeInUp delay-200">
                         Subscribe to our newsletter for the latest blends, brewing tips, and exclusive offers.
                     </p>
-                    <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-3 animate-fadeInUp delay-300">
-                        <input
-                            type="email"
-                            placeholder="Enter your email"
-                            className="flex-1 px-5 py-4 rounded-xl bg-white/10 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent backdrop-blur-sm transition-all duration-300 input-warm"
-                        />
-                        <button type="button" className="px-8 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-all duration-300 shadow-warm hover:shadow-warm-lg hover:scale-105 btn-shimmer">
-                            Subscribe
-                        </button>
-                    </form>
+                    {subscribed ? (
+                        <div className="animate-fadeInUp flex flex-col items-center gap-3">
+                            <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center text-3xl">
+                                ☕
+                            </div>
+                            <p className="text-white font-semibold text-lg">You're on the list!</p>
+                            <p className="text-white/50 text-sm">Thanks for subscribing. We'll keep you updated with the best brews.</p>
+                        </div>
+                    ) : (
+                        <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 animate-fadeInUp delay-300">
+                            <input
+                                type="email"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Enter your email"
+                                className="flex-1 px-5 py-4 rounded-xl bg-white/10 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent backdrop-blur-sm transition-all duration-300 input-warm"
+                            />
+                            <button type="submit" className="px-8 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-all duration-300 shadow-warm hover:shadow-warm-lg hover:scale-105 btn-shimmer">
+                                Subscribe
+                            </button>
+                        </form>
+                    )}
                 </div>
             </section>
         </div>
