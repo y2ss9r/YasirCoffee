@@ -33,10 +33,10 @@ const StatCard = ({ icon, label, value, sub, color = 'primary', trend }) => (
                 {sub && <p className="text-xs text-secondary/50 mt-1">{sub}</p>}
             </div>
             <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-xl ${color === 'green' ? 'bg-green-100' :
-                    color === 'red' ? 'bg-red-100' :
-                        color === 'amber' ? 'bg-amber-100' :
-                            color === 'blue' ? 'bg-blue-100' :
-                                'bg-primary/10'
+                color === 'red' ? 'bg-red-100' :
+                    color === 'amber' ? 'bg-amber-100' :
+                        color === 'blue' ? 'bg-blue-100' :
+                            'bg-primary/10'
                 } group-hover:scale-110 transition-transform duration-300`}>
                 {icon}
             </div>
@@ -318,7 +318,7 @@ const AdminDashboard = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             {d.insights.map((insight, i) => (
                                 <div key={i} className={`glass rounded-xl p-4 border-l-4 animate-fadeInUp ${insight.type === 'positive' ? 'border-l-green-400' :
-                                        insight.type === 'warning' ? 'border-l-amber-400' : 'border-l-blue-400'
+                                    insight.type === 'warning' ? 'border-l-amber-400' : 'border-l-blue-400'
                                     }`} style={{ animationDelay: `${i * 100}ms` }}>
                                     <p className="text-sm text-secondary">{insight.text}</p>
                                 </div>
@@ -332,11 +332,11 @@ const AdminDashboard = () => {
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                         <StatCard icon="👥" label="Total Users" value={d?.overview?.totalUsers || 0} color="blue" />
                         <StatCard icon="☕" label="Total Products" value={d?.overview?.totalProducts || 0} color="primary" />
-                        <StatCard icon="💵" label="Revenue (30d)" value={`$${d?.overview?.totalRevenue?.toFixed(2) || '0.00'}`} color="green" />
+                        <StatCard icon="💵" label="Revenue (30d)" value={`₺${d?.overview?.totalRevenue?.toFixed(2) || '0.00'}`} color="green" />
                         <StatCard icon="📈" label="Profit Margin" value={`${d?.overview?.profitMargin || 0}%`} color="amber" />
                         <StatCard icon="🛒" label="Total Orders" value={d?.overview?.totalOrders || 0} color="blue" />
-                        <StatCard icon="💰" label="Avg Order Value" value={`$${d?.overview?.avgOrderValue?.toFixed(2) || '0.00'}`} color="green" />
-                        <StatCard icon="📊" label="Total Profit" value={`$${d?.overview?.totalProfit?.toFixed(2) || '0.00'}`} color="primary" />
+                        <StatCard icon="💰" label="Avg Order Value" value={`₺${d?.overview?.avgOrderValue?.toFixed(2) || '0.00'}`} color="green" />
+                        <StatCard icon="📊" label="Total Profit" value={`₺${d?.overview?.totalProfit?.toFixed(2) || '0.00'}`} color="primary" />
                         <StatCard icon="📦" label="Stock Alerts" value={d?.stockAlerts?.length || 0} color={d?.stockAlerts?.length > 0 ? 'red' : 'green'} />
                     </div>
                 </Section>
@@ -361,8 +361,8 @@ const AdminDashboard = () => {
                                             <td className="px-5 py-3"><span className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">{i + 1}</span></td>
                                             <td className="px-5 py-3 font-medium text-secondary">{p.name}</td>
                                             <td className="px-5 py-3 font-semibold">{p.totalSold}</td>
-                                            <td className="px-5 py-3 text-green-600 font-semibold">${p.revenue}</td>
-                                            <td className="px-5 py-3 text-primary font-semibold">${p.profit}</td>
+                                            <td className="px-5 py-3 text-green-600 font-semibold">₺{p.revenue}</td>
+                                            <td className="px-5 py-3 text-primary font-semibold">₺{p.profit}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -377,7 +377,7 @@ const AdminDashboard = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             {d.stockAlerts.map((alert, i) => (
                                 <div key={i} className={`glass rounded-xl p-4 border-l-4 ${alert.severity === 'critical' ? 'border-l-red-500' :
-                                        alert.severity === 'warning' ? 'border-l-amber-400' : 'border-l-blue-400'
+                                    alert.severity === 'warning' ? 'border-l-amber-400' : 'border-l-blue-400'
                                     }`}>
                                     <div className="flex justify-between items-start">
                                         <div>
@@ -440,7 +440,7 @@ const AdminDashboard = () => {
                                 {['TRY', 'USD'].map(cur => (
                                     <label key={cur} className={`flex items-center gap-2 cursor-pointer rounded-xl border-2 px-5 py-2.5 text-sm font-semibold transition-all ${form.currency === cur ? 'border-primary bg-primary/5 text-primary' : 'border-gray-200 text-gray-400 hover:border-gray-300'}`}>
                                         <input type="radio" name="currency" value={cur} checked={form.currency === cur} onChange={handleChange} className="hidden" />
-                                        {cur === 'USD' ? '$ USD' : '₺ TRY'}
+                                        {cur === 'USD' ? '₺ USD' : '₺ TRY'}
                                     </label>
                                 ))}
                             </div>
@@ -509,8 +509,8 @@ const AdminDashboard = () => {
             <>
                 <Section title="📊 Sales Analytics" subtitle="Detailed performance metrics for the last 30 days">
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                        <StatCard icon="💵" label="Total Revenue" value={`$${d.overview?.totalRevenue?.toFixed(2) || '0.00'}`} color="green" />
-                        <StatCard icon="💰" label="Total Profit" value={`$${d.overview?.totalProfit?.toFixed(2) || '0.00'}`} color="primary" />
+                        <StatCard icon="💵" label="Total Revenue" value={`₺${d.overview?.totalRevenue?.toFixed(2) || '0.00'}`} color="green" />
+                        <StatCard icon="💰" label="Total Profit" value={`₺${d.overview?.totalProfit?.toFixed(2) || '0.00'}`} color="primary" />
                         <StatCard icon="🛒" label="Orders" value={d.overview?.totalOrders || 0} color="blue" />
                         <StatCard icon="📈" label="Profit Margin" value={`${d.overview?.profitMargin || 0}%`} color="amber" />
                     </div>
@@ -525,7 +525,7 @@ const AdminDashboard = () => {
                                 <div key={i} className="mb-3">
                                     <div className="flex justify-between text-xs mb-1">
                                         <span className="text-secondary font-medium">{p.name}</span>
-                                        <span className="text-primary font-semibold">${p.revenue}</span>
+                                        <span className="text-primary font-semibold">₺{p.revenue}</span>
                                     </div>
                                     <ProgressBar value={p.revenue} max={d.topProducts[0]?.revenue || 1} color={`hsl(${30 + i * 15}, 70%, 55%)`} />
                                 </div>
@@ -560,14 +560,14 @@ const AdminDashboard = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {stagnation.products?.map((p, i) => (
                             <div key={i} className={`glass rounded-2xl p-5 border-l-4 animate-fadeInUp ${p.status === 'critical' ? 'border-l-red-500' :
-                                    p.status === 'declining' ? 'border-l-orange-400' :
-                                        p.status === 'watch' ? 'border-l-amber-400' :
-                                            p.status === 'trending' ? 'border-l-blue-400' : 'border-l-green-400'
+                                p.status === 'declining' ? 'border-l-orange-400' :
+                                    p.status === 'watch' ? 'border-l-amber-400' :
+                                        p.status === 'trending' ? 'border-l-blue-400' : 'border-l-green-400'
                                 }`} style={{ animationDelay: `${i * 80}ms` }}>
                                 <div className="flex justify-between items-start mb-3">
                                     <div>
                                         <h4 className="font-semibold text-secondary">{p.name}</h4>
-                                        <p className="text-xs text-secondary/50">{p.category} • ${p.price}</p>
+                                        <p className="text-xs text-secondary/50">{p.category} • ₺{p.price}</p>
                                     </div>
                                     <StatusBadge status={p.status} />
                                 </div>
@@ -631,8 +631,8 @@ const AdminDashboard = () => {
                                 {pricing.suggestions?.map((s, i) => (
                                     <tr key={i} className="border-t border-gray-100 hover:bg-primary/5 transition-colors">
                                         <td className="px-4 py-3 font-medium text-secondary">{s.name}</td>
-                                        <td className="px-4 py-3 text-secondary/60">${s.basePrice}</td>
-                                        <td className="px-4 py-3 font-bold text-primary">${s.dynamicPrice}</td>
+                                        <td className="px-4 py-3 text-secondary/60">₺{s.basePrice}</td>
+                                        <td className="px-4 py-3 font-bold text-primary">₺{s.dynamicPrice}</td>
                                         <td className="px-4 py-3">
                                             <span className={`font-semibold ${s.adjustmentPct > 0 ? 'text-green-600' : s.adjustmentPct < 0 ? 'text-red-500' : 'text-secondary/50'}`}>
                                                 {s.adjustmentPct > 0 ? '+' : ''}{s.adjustmentPct}%
@@ -686,7 +686,7 @@ const AdminDashboard = () => {
                         { label: 'Cross-Sell Discount', value: '12%' },
                         { label: 'Welcome Discount', value: '20%' },
                         { label: 'Offer Valid For', value: '7 days' },
-                        { label: 'Min Order', value: '$0' },
+                        { label: 'Min Order', value: '₺0' },
                     ].map((cfg, i) => (
                         <div key={i} className="bg-secondary/5 rounded-xl p-3 text-center">
                             <p className="text-lg font-bold text-primary">{cfg.value}</p>
@@ -835,8 +835,8 @@ const AdminDashboard = () => {
                         {chatTest.messages.map((msg, i) => (
                             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${msg.role === 'user'
-                                        ? 'bg-primary text-white rounded-br-sm'
-                                        : 'bg-secondary/5 text-secondary rounded-bl-sm'
+                                    ? 'bg-primary text-white rounded-br-sm'
+                                    : 'bg-secondary/5 text-secondary rounded-bl-sm'
                                     }`}>
                                     <p style={{ whiteSpace: 'pre-wrap' }}>{msg.text}</p>
                                     {msg.quickReplies && (
@@ -1013,8 +1013,8 @@ const AdminDashboard = () => {
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${activeTab === tab.id
-                                        ? 'bg-primary/20 text-primary-light'
-                                        : 'text-white/50 hover:text-white/80 hover:bg-white/5'
+                                    ? 'bg-primary/20 text-primary-light'
+                                    : 'text-white/50 hover:text-white/80 hover:bg-white/5'
                                     }`}
                             >
                                 <span className="text-base flex-shrink-0">{tab.icon}</span>

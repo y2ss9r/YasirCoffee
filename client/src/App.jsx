@@ -14,6 +14,7 @@ import About from './pages/About';
 import AdminDashboard from './pages/AdminDashboard';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
+import CoffeeAssistant from './components/CoffeeAssistant';
 
 import { AuthProvider } from './context/AuthContext';
 
@@ -21,7 +22,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="min-h-screen bg-background text-secondary font-sans antialiased">
+        <div className="min-h-screen bg-background text-secondary font-sans antialiased relative">
           <Navbar />
           <main>
             <Routes>
@@ -60,6 +61,9 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
+
+          {/* Floating AI Assistant */}
+          <CoffeeAssistant />
 
           {/* Simple Footer */}
           <footer className="bg-secondary p-8 text-center text-white/50 text-sm">
