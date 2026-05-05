@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Order = require('../models/Order');
+const Product = require('../models/Product');
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -63,6 +64,12 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
 
     if (order) {
+        // Prevent double stock deduction if already paid
+        if (order.isPaid) {
+            res.status(400);
+            throw new Error('Order is already paid');
+        }
+
         order.isPaid = true;
         order.paidAt = Date.now();
         // Payment result from simulated processing
@@ -74,6 +81,14 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
         };
 
         const updatedOrder = await order.save();
+
+        // Decrement countInStock for each purchased item
+        for (const item of order.orderItems) {
+            await Product.findByIdAndUpdate(item.product, {
+                $inc: { countInStock: -item.qty },
+            });
+        }
+
         res.json(updatedOrder);
     } else {
         res.status(404);
